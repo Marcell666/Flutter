@@ -1,15 +1,12 @@
 # Flutter
 Repositório criado para o desenvolvimento do trabalho de Flutter da Disciplina INF300 da Puc-Rio.
 
-## Getting Started
+## Descrição
 
-This project is a starting point for a Flutter application.
+Nome do aplicativo/ projeto: CCE
+Resumo: Acesso a plataforma do CCE pelo celular para alunos e professores, onde para ambos é possível visualizar o horário e as salas de aula, e para os professores é possível fazer a chamada com uma lista de presença digital.
 
-A few resources to get you started if this is your first Flutter project:
+## Backend do aplicativo
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+O aplicativo utiliza uma api que foi feita em flask e o deploy foi feito no heroku https://github.com/tatirb/flutter_backend
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
