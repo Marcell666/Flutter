@@ -21,7 +21,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: Colors.grey.shade200,
+      backgroundColor: Colors.grey.shade200, //primary
       body: Stack(
         children: <Widget>[
           Container(
@@ -107,9 +107,10 @@ class _LoginPageState extends State<LoginPage> {
                       child: ElevatedButton(
                         onPressed: () =>
                             Navigator.pushNamed(context, route.homePage),
-                        style: const ButtonStyle(
-                            //backgroundColor: Colors.blue[400],
-                            ),
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                              const Color(0xff2A87BB)),
+                        ),
                         child: const Text(
                           'Entrar',
                           style: TextStyle(
