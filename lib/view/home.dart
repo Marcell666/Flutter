@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inf1300/route/route.dart' as route;
 import 'package:flutter_inf1300/model/aluno.dart';
+import 'package:flutter_inf1300/model/curso.dart';
 import 'package:flutter_inf1300/controller/http_service.dart';
 
 class HomePage extends StatelessWidget {
@@ -55,17 +56,27 @@ class HomePage extends StatelessWidget {
         body: TabBarView(
           children: <Widget>[
             FutureBuilder(
-              future: httpService.getAlunos(),
+              future: httpService.getCursosProfessor(),
               builder:
-                  (BuildContext context, AsyncSnapshot<List<Aluno>> snapshot) {
+                  (BuildContext context, AsyncSnapshot<List<Curso>> snapshot) {
                 if (snapshot.hasData) {
-                  List<Aluno> alunos = snapshot.data as List<Aluno>;
+                  List<Curso> cursos = snapshot.data as List<Curso>;
                   return ListView(
-                    children: alunos
+                    children: cursos
                         .map(
-                          (Aluno aluno) => Card(
+                          (Curso curso) => Card(
                             child: ListTile(
-                              title: Text(aluno.username),
+                              title: Text(
+                                curso.name,
+                                style:
+                                    const TextStyle(color: Color(0xFF4E4E4E)),
+                              ),
+                              trailing: const IconButton(
+                                iconSize: 30.0,
+                                icon: Icon(Icons.chevron_right,
+                                    color: Color(0xffA5A5A5)),
+                                onPressed: null,
+                              ),
                             ),
                           ),
                         )

@@ -80,6 +80,7 @@ class _LoginPageState extends State<LoginPage> {
                             height: 24.0,
                             child: Radio(
                               value: 0,
+                              activeColor: const Color(0xff2A87BB),
                               groupValue: _radioValue1,
                               onChanged: _handleRadioValueChange1,
                             ),
@@ -91,6 +92,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         Radio(
                           value: 1,
+                          activeColor: const Color(0xff2A87BB),
                           groupValue: _radioValue1,
                           onChanged: _handleRadioValueChange1,
                         ),

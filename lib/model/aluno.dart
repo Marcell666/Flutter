@@ -1,18 +1,16 @@
 class Aluno {
-  //final int id;
+  final int id;
   final String username;
-  //final String name;
+  final String fullname;
   //final String password;
 
-  Aluno({
-    required this.username,
-  });
+  Aluno({required this.id, required this.username, required this.fullname});
 
   factory Aluno.fromJson(Map<String, dynamic> json) {
     return Aluno(
-      //id: json['id'],
+      id: json['id'],
       username: json['username'],
-      //name: json['name'],
+      fullname: json['name'],
       //password: json['password'],
     );
   }
