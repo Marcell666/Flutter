@@ -71,11 +71,17 @@ class HomePage extends StatelessWidget {
                                 style:
                                     const TextStyle(color: Color(0xFF4E4E4E)),
                               ),
-                              trailing: const IconButton(
+                              trailing: IconButton(
                                 iconSize: 30.0,
-                                icon: Icon(Icons.chevron_right,
-                                    color: Color(0xffA5A5A5)),
-                                onPressed: null,
+                                icon: const Icon(
+                                  Icons.chevron_right,
+                                  color: Color(0xffA5A5A5),
+                                ),
+                                onPressed: () => Navigator.pushNamed(
+                                  context,
+                                  route.attendancePage,
+                                  arguments: curso.id,
+                                ),
                               ),
                             ),
                           ),

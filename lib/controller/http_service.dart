@@ -14,9 +14,9 @@ class HttpService {
   }
 */
   //final String alunosURL = 'https://cce-backend.herokuapp.com/alunos';
-  Future<List<Aluno>> getAlunos() async {
-    final response =
-        await http.get(Uri.parse('https://cce-backend.herokuapp.com/alunos'));
+  Future<List<Aluno>> getCursosAlunos(int id) async {
+    final response = await http
+        .get(Uri.parse('https://cce-backend.herokuapp.com/cursos/$id/alunos'));
     if (response.statusCode == 200) {
       List<dynamic> body = jsonDecode(response.body);
       List<Aluno> alunos = body
@@ -35,7 +35,6 @@ class HttpService {
         Uri.parse('https://cce-backend.herokuapp.com/professores/1/cursos'));
     if (response.statusCode == 200) {
       List<dynamic> body = jsonDecode(response.body);
-      print(body);
       List<Curso> cursos = body
           .map(
             (dynamic item) => Curso.fromJson(item),
