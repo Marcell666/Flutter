@@ -1,4 +1,4 @@
-# Flutter
+# flutter_inf1300
 Repositório criado para o desenvolvimento do trabalho de Flutter da Disciplina INF300 da Puc-Rio.
 
 ## Descrição 
