@@ -15,6 +15,27 @@ class AttendancePage extends StatefulWidget {
 class _AttendancePageState extends State<AttendancePage> {
   String attendanceDate = DateFormat('dd/MM/yyyy').format(DateTime.now());
   final HttpService httpService = HttpService();
+  List<int> checkboxAttendance = [];
+  List<int> studentsCourse = [];
+
+  void checkboxPrinter() {
+    var listPresenca = [];
+    studentsCourse
+        .removeWhere((element) => checkboxAttendance.contains(element));
+    checkboxAttendance.forEach((id) => listPresenca.add({
+          'present': true,
+          'course_id': int.parse(widget.arguments.toString()),
+          'student_id': id,
+          'date': attendanceDate
+        }));
+    studentsCourse.forEach((id) => listPresenca.add({
+          'present': false,
+          'course_id': int.parse(widget.arguments.toString()),
+          'student_id': id,
+          'date': attendanceDate
+        }));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +50,7 @@ class _AttendancePageState extends State<AttendancePage> {
             ElevatedButton(onPressed: null, child: Text(attendanceDate)),
             const Spacer(),
             ElevatedButton(
-              onPressed: null,
+              onPressed: () => checkboxPrinter(),
               child: const Text(
                 'Salvar',
                 style:
@@ -49,6 +70,8 @@ class _AttendancePageState extends State<AttendancePage> {
         builder: (BuildContext context, AsyncSnapshot<List<Aluno>> snapshot) {
           if (snapshot.hasData) {
             List<Aluno> alunos = snapshot.data as List<Aluno>;
+            studentsCourse = [];
+            alunos.forEach((Aluno aluno) => studentsCourse.add(aluno.id));
             return ListView(
               children: alunos
                   .map(
@@ -57,6 +80,20 @@ class _AttendancePageState extends State<AttendancePage> {
                         title: Text(
                           aluno.fullname,
                           style: const TextStyle(color: Color(0xFF4E4E4E)),
+                        ),
+                        trailing: Checkbox(
+                          onChanged: (value) {
+                            if (value == true) {
+                              setState(() {
+                                checkboxAttendance.add(aluno.id);
+                              });
+                            } else {
+                              setState(() {
+                                checkboxAttendance.remove(aluno.id);
+                              });
+                            }
+                          },
+                          value: checkboxAttendance.contains(aluno.id),
                         ),
                       ),
                     ),
