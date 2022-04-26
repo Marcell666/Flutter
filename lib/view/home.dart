@@ -56,7 +56,7 @@ class HomePage extends StatelessWidget {
         body: TabBarView(
           children: <Widget>[
             FutureBuilder(
-              future: httpService.getCursosProfessor(),
+              future: httpService.getProfessorCursos(),
               builder:
                   (BuildContext context, AsyncSnapshot<List<Curso>> snapshot) {
                 if (snapshot.hasData) {
@@ -74,7 +74,7 @@ class HomePage extends StatelessWidget {
                               trailing: IconButton(
                                 iconSize: 30.0,
                                 icon: const Icon(
-                                  Icons.chevron_right,
+                                  Icons.add,
                                   color: Color(0xffA5A5A5),
                                 ),
                                 onPressed: () => Navigator.pushNamed(
@@ -94,7 +94,7 @@ class HomePage extends StatelessWidget {
               },
             ),
             const Center(
-              child: Text("It's rainy here"),
+              child: Text(""),
             ),
           ],
         ),

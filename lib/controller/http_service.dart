@@ -5,15 +5,6 @@ import 'package:flutter_inf1300/model/aluno.dart';
 import 'package:flutter_inf1300/model/curso.dart';
 
 class HttpService {
-// A function that converts a response body into a List<Photo>.
-/*
-  List<Aluno> parseAlunoList(String responseBody) {
-    final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
-
-    return parsed.map<Aluno>((json) => Aluno.fromJson(json)).toList();
-  }
-*/
-  //final String alunosURL = 'https://cce-backend.herokuapp.com/alunos';
   Future<List<Aluno>> getCursosAlunos(int id) async {
     final response = await http
         .get(Uri.parse('https://cce-backend.herokuapp.com/cursos/$id/alunos'));
@@ -30,7 +21,7 @@ class HttpService {
     }
   }
 
-  Future<List<Curso>> getCursosProfessor() async {
+  Future<List<Curso>> getProfessorCursos() async {
     final response = await http.get(
         Uri.parse('https://cce-backend.herokuapp.com/professores/1/cursos'));
     if (response.statusCode == 200) {
@@ -40,25 +31,9 @@ class HttpService {
             (dynamic item) => Curso.fromJson(item),
           )
           .toList();
-      print(cursos);
       return cursos;
     } else {
       throw "Unable to retrieve posts.";
     }
   }
 }
-/*
-Future<Aluno> fetchAluno(int id) async {
-  final response =
-      await http.get('https://jsonplaceholder.typicode.com/Alunos/$id');
-
-  if (response.statusCode == 200) {
-    // If the call to the server was successful, parse the JSON
-    return Aluno.fromJson(json.decode(response.body));
-  } else {
-    // If that call was not successful, throw an error.
-    throw Exception('Failed to load Aluno');
-  }
-}
-*/
-
