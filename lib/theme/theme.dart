@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// fazer classe
 class AppTheme {
   ThemeData get theme {
     return ThemeData(

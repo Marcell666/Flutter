@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'route/route.dart' as route;
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -26,6 +27,14 @@ class MyApp extends StatelessWidget {
       onGenerateRoute: route.controller,
       initialRoute: route.loginPage,
       debugShowCheckedModeBanner: false,
+      supportedLocales: const [
+        Locale("pt", "BR"),
+      ],
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
     );
   }
 }

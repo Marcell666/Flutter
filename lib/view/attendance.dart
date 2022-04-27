@@ -6,19 +6,19 @@ import 'package:intl/intl.dart';
 
 class AttendancePage extends StatefulWidget {
   final Object? arguments;
-  //const AttendancePage({Key? key, Object? arguments}) : super(key: key);
   const AttendancePage({required this.arguments});
   @override
   State<AttendancePage> createState() => _AttendancePageState();
 }
 
 class _AttendancePageState extends State<AttendancePage> {
-  String attendanceDate = DateFormat('dd/MM/yyyy').format(DateTime.now());
+  //String attendanceDate = DateFormat('dd/MM/yyyy').format(DateTime.now());
   final HttpService httpService = HttpService();
   List<int> checkboxAttendance = [];
   List<int> studentsCourse = [];
+  late DateTime selectedDate = DateTime.now();
 
-  void checkboxPrinter() {
+  void postAttendance() {
     var listPresenca = [];
     studentsCourse
         .removeWhere((element) => checkboxAttendance.contains(element));
@@ -26,14 +26,31 @@ class _AttendancePageState extends State<AttendancePage> {
           'present': true,
           'course_id': int.parse(widget.arguments.toString()),
           'student_id': id,
-          'date': attendanceDate
+          'date': DateFormat('dd/MM/yyyy').format(selectedDate).toString()
         }));
     studentsCourse.forEach((id) => listPresenca.add({
           'present': false,
           'course_id': int.parse(widget.arguments.toString()),
           'student_id': id,
-          'date': attendanceDate
+          'date': DateFormat('dd/MM/yyyy').format(selectedDate).toString()
         }));
+  }
+
+  void datePicker() {
+    showDatePicker(
+            context: context,
+            locale: const Locale("pt", "BR"),
+            initialDate: DateTime.now(),
+            firstDate: DateTime(1950),
+            lastDate: DateTime.now())
+        .then((pickedDate) {
+      if (pickedDate == null) {
+        return;
+      }
+      setState(() {
+        selectedDate = pickedDate;
+      });
+    });
   }
 
   @override
@@ -47,10 +64,27 @@ class _AttendancePageState extends State<AttendancePage> {
         title: Row(
           children: <Widget>[
             const Spacer(),
-            ElevatedButton(onPressed: null, child: Text(attendanceDate)),
+            ElevatedButton(
+              onPressed: () => datePicker(),
+              child: Text(
+                DateFormat('dd/MM/yyyy').format(selectedDate).toString(),
+                style: const TextStyle(color: Color(0xFF4E4E4E)),
+              ),
+              style: ButtonStyle(
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(Colors.grey.shade200),
+                shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5),
+                  side: const BorderSide(
+                    color: Color(0xffa18c59),
+                    width: 1.5,
+                  ),
+                )),
+              ),
+            ),
             const Spacer(),
             ElevatedButton(
-              onPressed: () => checkboxPrinter(),
+              onPressed: () => postAttendance(),
               child: const Text(
                 'Salvar',
                 style:
