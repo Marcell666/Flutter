@@ -10,19 +10,24 @@ void main() {
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]);
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
+  final ThemeData themeApp = ThemeData();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+      theme: themeApp.copyWith(
+        colorScheme: themeApp.colorScheme.copyWith(
+          //primary: Colors.grey.shade200,
+          primary: const Color(0xff2A87BB),
+          //secondary: const Color(0xff2A87BB),
+        ),
       ),
       onGenerateRoute: route.controller,
       initialRoute: route.loginPage,

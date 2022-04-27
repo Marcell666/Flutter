@@ -85,11 +85,9 @@ class _AttendancePageState extends State<AttendancePage> {
             const Spacer(),
             ElevatedButton(
               onPressed: () => postAttendance(),
-              child: const Text(
-                'Salvar',
-                style:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-              ),
+              child: const Text('Salvar',
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold)),
               style: ButtonStyle(
                 backgroundColor:
                     MaterialStateProperty.all<Color>(const Color(0xff2A87BB)),
