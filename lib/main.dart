@@ -24,10 +24,14 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: themeApp.copyWith(
         colorScheme: themeApp.colorScheme.copyWith(
-          //primary: Colors.grey.shade200,
           primary: const Color(0xff2A87BB),
-          //secondary: const Color(0xff2A87BB),
+          background: Colors.grey.shade200,
         ),
+        textTheme: Theme.of(context).textTheme.copyWith(
+              titleMedium: const TextStyle(
+                color: Color(0xffa18c59),
+              ),
+            ),
       ),
       onGenerateRoute: route.controller,
       initialRoute: route.loginPage,
