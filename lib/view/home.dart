@@ -3,13 +3,24 @@ import 'package:flutter_inf1300/route/route.dart' as route;
 import 'package:flutter_inf1300/model/aluno.dart';
 import 'package:flutter_inf1300/model/curso.dart';
 import 'package:flutter_inf1300/controller/http_service.dart';
+import 'package:flutter_inf1300/widget/schedule.dart';
 
 class HomePage extends StatelessWidget {
   final HttpService httpService = HttpService();
+  late BuildContext contextSave;
   //const HomePage({Key? key}) : super(key: key);
+
+  void choiceAction(String choice) {
+    if (choice == Constants.firstItem) {
+      Navigator.pushNamed(contextSave, route.settingsPage);
+    } else if (choice == Constants.secondItem) {
+      Navigator.pop(contextSave);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    contextSave = context;
     return DefaultTabController(
       initialIndex: 0,
       length: 2,
@@ -33,10 +44,20 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               const Spacer(),
-              const IconButton(
-                iconSize: 30.0,
-                icon: Icon(Icons.more_vert, color: Color(0xffA5A5A5)),
-                onPressed: null,
+              PopupMenuButton<String>(
+                icon: const Icon(Icons.more_vert, color: Color(0xffA5A5A5)),
+                onSelected: choiceAction,
+                itemBuilder: (BuildContext context) {
+                  return Constants.choices.map((String choice) {
+                    return PopupMenuItem<String>(
+                      value: choice,
+                      child: Text(
+                        choice,
+                        style: const TextStyle(color: Color(0xFF4E4E4E)),
+                      ),
+                    );
+                  }).toList();
+                },
               ),
             ],
           ),
@@ -93,12 +114,20 @@ class HomePage extends StatelessWidget {
                 }
               },
             ),
-            const Center(
-              child: Text(""),
-            ),
+            const ScheduleWidget()
           ],
         ),
       ),
     );
   }
+}
+
+class Constants {
+  static const String firstItem = 'Configurações';
+  static const String secondItem = 'Sair';
+
+  static const List<String> choices = <String>[
+    firstItem,
+    secondItem,
+  ];
 }

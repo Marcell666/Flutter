@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter_inf1300/model/aluno.dart';
 import 'package:flutter_inf1300/model/curso.dart';
+import 'package:flutter_inf1300/model/presenca.dart';
 
 class HttpService {
   Future<List<Aluno>> getCursosAlunos(int id) async {
@@ -36,4 +37,20 @@ class HttpService {
       throw "Unable to retrieve posts.";
     }
   }
+
+  Future<Presenca> postPresenca(List<Object> listPresenca) async {
+    final response = await http.post(
+        Uri.parse('https://cce-backend.herokuapp.com/attendances/alunos'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(listPresenca),
+        );
+    if (response.statusCode == 201) {
+      return Presenca.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Failed to post.');
+    }
+  }
+
 }

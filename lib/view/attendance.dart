@@ -18,8 +18,8 @@ class _AttendancePageState extends State<AttendancePage> {
   List<int> studentsCourse = [];
   late DateTime selectedDate = DateTime.now();
 
-  void postAttendance() {
-    var listPresenca = [];
+  void postAttendance() async {
+    List<Object> listPresenca = [];
     studentsCourse
         .removeWhere((element) => checkboxAttendance.contains(element));
     checkboxAttendance.forEach((id) => listPresenca.add({
@@ -34,6 +34,7 @@ class _AttendancePageState extends State<AttendancePage> {
           'student_id': id,
           'date': DateFormat('dd/MM/yyyy').format(selectedDate).toString()
         }));
+    httpService.postPresenca(listPresenca);
   }
 
   void datePicker() {
@@ -84,7 +85,10 @@ class _AttendancePageState extends State<AttendancePage> {
             ),
             const Spacer(),
             ElevatedButton(
-              onPressed: () => postAttendance(),
+              onPressed: () {
+                postAttendance();
+                Navigator.pop(context);
+              },
               child: const Text('Salvar',
                   style: TextStyle(
                       color: Colors.white, fontWeight: FontWeight.bold)),

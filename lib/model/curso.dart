@@ -2,16 +2,13 @@ class Curso {
   final int id;
   final String name;
   final String classroom;
-  final int begin;
-  final int finish;
-  //final List<String> days;
+  var schedule;
 
   Curso({
     required this.id,
     required this.name,
     required this.classroom,
-    required this.begin,
-    required this.finish,
+    required this.schedule,
   });
 
   factory Curso.fromJson(Map<String, dynamic> json) {
@@ -19,8 +16,7 @@ class Curso {
       id: json['id'],
       name: json['name'],
       classroom: json['classroom'],
-      begin: json['begin'],
-      finish: json['finish'],
+      schedule: json['schedule'],
     );
   }
 }
