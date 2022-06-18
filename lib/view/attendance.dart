@@ -12,7 +12,6 @@ class AttendancePage extends StatefulWidget {
 }
 
 class _AttendancePageState extends State<AttendancePage> {
-  //String attendanceDate = DateFormat('dd/MM/yyyy').format(DateTime.now());
   final HttpService httpService = HttpService();
   List<int> checkboxAttendance = [];
   List<int> studentsCourse = [];

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inf1300/route/route.dart' as route;
+import 'package:flutter_inf1300/controller/http_service.dart';
+import 'package:flutter_inf1300/controller/database_helper.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -9,7 +11,11 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final HttpService httpService = HttpService();
+  final dbHelper = DatabaseHelper.instance;
   int? _radioValue1 = -1;
+  final userController = TextEditingController();
+  final passwordController = TextEditingController();
 
   void _handleRadioValueChange1(int? value) {
     setState(() {
@@ -18,10 +24,17 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   @override
+  void dispose() {
+    userController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: Colors.grey.shade200, //primary
+      backgroundColor: Colors.grey.shade200,
       body: Stack(
         children: <Widget>[
           Container(
@@ -66,11 +79,14 @@ class _LoginPageState extends State<LoginPage> {
                 alignment: Alignment.centerLeft,
                 child: Column(
                   children: <Widget>[
-                    const TextField(
-                        decoration: InputDecoration(labelText: 'CPF ou Email')),
-                    const TextField(
+                    TextField(
+                        controller: userController,
+                        decoration:
+                            const InputDecoration(labelText: 'CPF ou Email')),
+                    TextField(
+                        controller: passwordController,
                         obscureText: true,
-                        decoration: InputDecoration(labelText: 'Senha')),
+                        decoration: const InputDecoration(labelText: 'Senha')),
                     Row(
                       children: <Widget>[
                         Padding(
@@ -107,8 +123,19 @@ class _LoginPageState extends State<LoginPage> {
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
-                        onPressed: () =>
-                            Navigator.pushNamed(context, route.homePage),
+                        onPressed: () async {
+                          var response = await httpService.loginProfessor(
+                              userController.text, passwordController.text);
+                          if (response != null) {
+                            Map<String, dynamic> row = {
+                              DatabaseHelper.columnLoggedId: response.id,
+                              DatabaseHelper.columnLanguage: 'pt',
+                              DatabaseHelper.columnLogged: 1
+                            };
+                            var response2 = await dbHelper.insert(row);
+                          }
+                          //Navigator.pushNamed(context, route.homePage);
+                        },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(
                               const Color(0xff2A87BB)),

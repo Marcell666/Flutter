@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
         ),
         textTheme: Theme.of(context).textTheme.copyWith(
               titleMedium: const TextStyle(
-                color: Color(0xffa18c59),
+                color: Color(0xff4e4e4e),
               ),
             ),
       ),

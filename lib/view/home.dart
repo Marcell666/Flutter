@@ -53,7 +53,6 @@ class HomePage extends StatelessWidget {
                       value: choice,
                       child: Text(
                         choice,
-                        style: const TextStyle(color: Color(0xFF4E4E4E)),
                       ),
                     );
                   }).toList();
@@ -77,7 +76,7 @@ class HomePage extends StatelessWidget {
         body: TabBarView(
           children: <Widget>[
             FutureBuilder(
-              future: httpService.getProfessorCursos(),
+              future: httpService.getProfessorCursos(1),
               builder:
                   (BuildContext context, AsyncSnapshot<List<Curso>> snapshot) {
                 if (snapshot.hasData) {
