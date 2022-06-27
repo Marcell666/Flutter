@@ -123,7 +123,8 @@ class _LoginPageState extends State<LoginPage> {
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
-                        onPressed: () async {
+                        onPressed: () {
+                          /*
                           var response = await httpService.loginProfessor(
                               userController.text, passwordController.text);
                           if (response != null) {
@@ -132,9 +133,13 @@ class _LoginPageState extends State<LoginPage> {
                               DatabaseHelper.columnLanguage: 'pt',
                               DatabaseHelper.columnLogged: 1
                             };
-                            var response2 = await dbHelper.insert(row);
+                            var response1 = await dbHelper.insert(row);
+                            //var response2 = await dbHelper.queryLogged();
+                            //print("Count = ");
+                            //print(response2);
                           }
-                          //Navigator.pushNamed(context, route.homePage);
+                          */
+                          Navigator.pushNamed(context, route.homePage);
                         },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(

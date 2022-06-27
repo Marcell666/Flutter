@@ -7,32 +7,36 @@ class ScheduleWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
-      Column(
-        children: const <Widget>[
-          Text(' \n'),
-          SizedBox(height: 20.0),
-          Text('   07-08'),
-          SizedBox(height: 20.0),
-          Text('   08-09'),
-          SizedBox(height: 20.0),
-          Text('   09-10'),
-          SizedBox(height: 20.0),
-          Text('   10-11'),
-          SizedBox(height: 20.0),
-        ],
-      ),
-      Spacer(),
-      Text('\nSeg'),
-      Spacer(),
-      Text('\nTer'),
-      Spacer(),
-      Text('\nQua'),
-      Spacer(),
-      Text('\nQui'),
-      Spacer(),
-      Text('\nSex'),
-      Spacer(),
-    ]);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text('\nSegunda-Feira\n'),
+        SizedBox(
+          height: 50.0,
+          width: double.infinity,
+          child: Card(
+            child: Row(
+              children: <Widget>[
+                Text('  07-09'),
+                SizedBox(
+                  height: 20.0,
+                  child: VerticalDivider(
+                    color: Colors.black,
+                    thickness: 1,
+                  ),
+                ),
+                Text('     Introdução a Flutter'),
+                Text('     546L'),
+              ],
+            ),
+          ),
+        ),
+        Text('Terça-Feira\n'),
+        Text('Quarta-Feira\n'),
+        Text('Quinta-Feira\n'),
+        Text('Sexta-Feira\n'),
+        Text('Sábado\n'),
+      ],
+    );
   }
 }

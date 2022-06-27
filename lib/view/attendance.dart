@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_inf1300/app_localizations.dart';
 import 'package:flutter_inf1300/route/route.dart' as route;
 import 'package:flutter_inf1300/controller/http_service.dart';
 import 'package:flutter_inf1300/model/aluno.dart';
@@ -88,8 +89,11 @@ class _AttendancePageState extends State<AttendancePage> {
                 postAttendance();
                 Navigator.pop(context);
               },
-              child: const Text('Salvar',
-                  style: TextStyle(
+              child: Text(
+                  AppLocalizations.of(context)!
+                      .translate('saveButtom')
+                      .toString(),
+                  style: const TextStyle(
                       color: Colors.white, fontWeight: FontWeight.bold)),
               style: ButtonStyle(
                 backgroundColor:

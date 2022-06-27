@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inf1300/route/route.dart' as route;
-import 'package:flutter_inf1300/model/aluno.dart';
+//import 'package:flutter_inf1300/model/aluno.dart';
 import 'package:flutter_inf1300/model/curso.dart';
 import 'package:flutter_inf1300/controller/http_service.dart';
 import 'package:flutter_inf1300/widget/schedule.dart';
+import 'package:flutter_inf1300/app_localizations.dart';
 
 class HomePage extends StatelessWidget {
   final HttpService httpService = HttpService();
@@ -11,9 +12,9 @@ class HomePage extends StatelessWidget {
   //const HomePage({Key? key}) : super(key: key);
 
   void choiceAction(String choice) {
-    if (choice == Constants.firstItem) {
+    if (choice == 'Value1') {
       Navigator.pushNamed(contextSave, route.settingsPage);
-    } else if (choice == Constants.secondItem) {
+    } else if (choice == 'Value2') {
       Navigator.pop(contextSave);
     }
   }
@@ -47,28 +48,32 @@ class HomePage extends StatelessWidget {
               PopupMenuButton<String>(
                 icon: const Icon(Icons.more_vert, color: Color(0xffA5A5A5)),
                 onSelected: choiceAction,
-                itemBuilder: (BuildContext context) {
-                  return Constants.choices.map((String choice) {
-                    return PopupMenuItem<String>(
-                      value: choice,
-                      child: Text(
-                        choice,
-                      ),
-                    );
-                  }).toList();
-                },
+                itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+                  PopupMenuItem<String>(
+                    value: 'Value1',
+                    child: Text(AppLocalizations.of(context)!
+                        .translate('settings')
+                        .toString()),
+                  ),
+                  PopupMenuItem<String>(
+                    value: 'Value2',
+                    child: Text(AppLocalizations.of(context)!
+                        .translate('logout')
+                        .toString()),
+                  ),
+                ],
               ),
             ],
           ),
-          bottom: const TabBar(
-            labelColor: Color(0xffA5A5A5),
-            indicatorColor: Color(0xff2A87BB),
+          bottom: TabBar(
+            labelColor: const Color(0xffA5A5A5),
+            indicatorColor: const Color(0xff2A87BB),
             tabs: <Widget>[
               Tab(
-                text: 'Listas de Presença',
+                text: AppLocalizations.of(context)?.translate('sidebar0'),
               ),
               Tab(
-                text: 'Horários e Salas de Aula',
+                text: AppLocalizations.of(context)?.translate('sidebar1'),
               ),
             ],
           ),
@@ -76,7 +81,9 @@ class HomePage extends StatelessWidget {
         body: TabBarView(
           children: <Widget>[
             FutureBuilder(
-              future: httpService.getProfessorCursos(1),
+              future: httpService
+                  .getProfessorCursos(1), //professor com id=1 no banco
+
               builder:
                   (BuildContext context, AsyncSnapshot<List<Curso>> snapshot) {
                 if (snapshot.hasData) {
@@ -119,14 +126,4 @@ class HomePage extends StatelessWidget {
       ),
     );
   }
-}
-
-class Constants {
-  static const String firstItem = 'Configurações';
-  static const String secondItem = 'Sair';
-
-  static const List<String> choices = <String>[
-    firstItem,
-    secondItem,
-  ];
 }
