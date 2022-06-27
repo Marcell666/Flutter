@@ -98,17 +98,34 @@ class HomePage extends StatelessWidget {
                                 style:
                                     const TextStyle(color: Color(0xFF4E4E4E)),
                               ),
-                              trailing: IconButton(
-                                iconSize: 30.0,
-                                icon: const Icon(
-                                  Icons.add,
-                                  color: Color(0xffA5A5A5),
-                                ),
-                                onPressed: () => Navigator.pushNamed(
-                                  context,
-                                  route.attendancePage,
-                                  arguments: curso.id,
-                                ),
+                              trailing: Wrap(
+                                spacing: 5,
+                                children: <Widget>[
+                                  IconButton(
+                                    iconSize: 30.0,
+                                    icon: const Icon(
+                                      Icons.library_books,
+                                      color: Color(0xffA5A5A5),
+                                    ),
+                                    onPressed: () => Navigator.pushNamed(
+                                      context,
+                                      route.attendanceCollectionPage,
+                                      arguments: curso.id,
+                                    ),
+                                  ),
+                                  IconButton(
+                                    iconSize: 30.0,
+                                    icon: const Icon(
+                                      Icons.add,
+                                      color: Color(0xffA5A5A5),
+                                    ),
+                                    onPressed: () => Navigator.pushNamed(
+                                      context,
+                                      route.attendancePage,
+                                      arguments: curso.id,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),

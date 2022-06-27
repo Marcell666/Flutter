@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:flutter_inf1300/model/aluno_presenca.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_inf1300/model/aluno.dart';
 import 'package:flutter_inf1300/model/professor.dart';
@@ -51,6 +52,44 @@ class HttpService {
       return Presenca.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('Failed to post.');
+    }
+  }
+
+  Future<List<AlunoPresenca>> postPresencaDataAlunos(
+      Map<String, Object> listBody) async {
+    final response = await http.post(
+      Uri.parse('https://cce-backend.herokuapp.com/alunos/presenca'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(listBody),
+    );
+    if (response.statusCode == 201) {
+      List<dynamic> body = jsonDecode(response.body);
+      List<AlunoPresenca> alunos = body
+          .map(
+            (dynamic item) => AlunoPresenca.fromJson(item),
+          )
+          .toList();
+      return alunos;
+    } else {
+      throw "Unable to retrieve posts.";
+    }
+  }
+
+  Future<List<Presenca>> getAlunosPresenca(int id) async {
+    final response = await http
+        .get(Uri.parse('https://cce-backend.herokuapp.com/curso/$id/dates'));
+    if (response.statusCode == 200) {
+      List<dynamic> body = jsonDecode(response.body);
+      List<Presenca> presencas = body
+          .map(
+            (dynamic item) => Presenca.fromJson(item),
+          )
+          .toList();
+      return presencas;
+    } else {
+      throw "Unable to retrieve posts.";
     }
   }
 
