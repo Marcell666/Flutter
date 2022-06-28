@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inf1300/app_localizations.dart';
-import 'package:flutter_inf1300/route/route.dart' as route;
 import 'package:flutter_inf1300/controller/http_service.dart';
 import 'package:flutter_inf1300/model/aluno.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_inf1300/notification_service.dart';
 
 class AttendancePage extends StatefulWidget {
   final Object? arguments;
@@ -87,6 +87,13 @@ class _AttendancePageState extends State<AttendancePage> {
             ElevatedButton(
               onPressed: () {
                 postAttendance();
+                String dateFormat =
+                    DateFormat('dd/MM/yyyy').format(selectedDate).toString();
+                NotificationService.showNotification(
+                    id: 0,
+                    title: "Nova lista de chamada",
+                    body:
+                        'Você cadastrou uma nova lista de chamada para o dia $dateFormat');
                 Navigator.pop(context);
               },
               child: Text(
